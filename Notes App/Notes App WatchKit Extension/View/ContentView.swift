@@ -15,6 +15,10 @@ struct ContentView: View {
     
     // MARK: - FUNCTION
     
+    func save() {
+        dump(notes)
+    }
+    
     // MARK: - BODY
     
     var body: some View {
@@ -23,9 +27,24 @@ struct ContentView: View {
                 TextField("Add New Note", text: $text)
                 
                 Button {
-                    // action
+                    // 1. run btn action when textfield isnt empty
+                    guard text.isEmpty == false else { return }
+                    
+                    // 2. create a new note item && initialize it with text value
+                    let note = Note(id: UUID(), text: text)
+                    
+                    // 3. add new note item to the notes array (append)
+                    notes.append(note)
+                    
+                    // 4. make textfield empty
+                    text = ""
+                    
+                    // 5. save the notes (func)
+                    save()
+                    
+                    
                 } label: {
-                    Image(systemName: "plus.circle")
+                    Image(systemName: "plus")
                         .font(.system(size: 42, weight: .semibold))
                 }
                 .fixedSize()
@@ -35,6 +54,8 @@ struct ContentView: View {
             } //: hstack
             
             Spacer()
+            
+            Text("\(notes.count)")
         } //: vstack
         .navigationTitle("Notes")
     }
