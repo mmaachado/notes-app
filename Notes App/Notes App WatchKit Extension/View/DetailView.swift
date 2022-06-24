@@ -8,27 +8,17 @@
 import SwiftUI
 
 struct DetailView: View {
-    // MARK: - PROPERTY
     
     let note:Note
     let count:Int
     let index:Int
     
-    // MARK: - BODY
+    @State private var isCreditPresented:Bool = false
     
     var body: some View {
         VStack(alignment: .center, spacing: 3) {
             // header
-            HStack {
-                Capsule()
-                    .frame(height: 1)
-                
-                Image(systemName: "note.text")
-                
-                Capsule()
-                    .frame(height: 1)
-            } //: hstack
-            .foregroundColor(.accentColor)
+            HeaderView(title: "")
             
             // content
             Spacer()
@@ -55,6 +45,12 @@ struct DetailView: View {
                 
                 Image(systemName: "info.circle")
                     .imageScale(.large)
+                    .onTapGesture {
+                        isCreditPresented.toggle()
+                    }
+                    .sheet(isPresented: $isCreditPresented, content: {
+                        CreditsView()
+                    })
             } //: hstack
             .foregroundColor(.secondary)
         } //: vstack
@@ -63,7 +59,6 @@ struct DetailView: View {
 }
 
 
-    // MARK: - PREVIEW
 struct DetailView_Previews: PreviewProvider {
     static var sampleData:Note = Note(id: UUID(), text: "Hello world")
     

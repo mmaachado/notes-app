@@ -8,12 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    // MARK: - PROPERTY
-    
+  
     @State private var notes:[Note] = [Note]()
     @State private var text:String = ""
-    
-    // MARK: - FUNCTION
     
     func getDocumentDirectory() -> URL {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -60,8 +57,6 @@ struct ContentView: View {
             save()
         }
     }
-    
-    // MARK: - BODY
     
     var body: some View {
         VStack {
@@ -131,7 +126,6 @@ struct ContentView: View {
         })
     }
 }
-    // MARK: - PREVIEW
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
